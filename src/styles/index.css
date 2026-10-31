@@ -1,0 +1,72 @@
+@import '@fontsource/rozha-one/400.css';
+@import '@fontsource/hind/400.css';
+@import '@fontsource/hind/500.css';
+@import '@fontsource/hind/600.css';
+@import '@fontsource/manjari/400.css';
+@import '@fontsource/manjari/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-kasavu font-body text-step-0 text-soot antialiased;
+    font-feature-settings: 'kern', 'liga';
+  }
+  h1, h2, h3 { @apply font-display font-normal tracking-[-0.01em]; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { @apply bg-zari text-soot; }
+  :focus-visible { outline: 2px solid theme('colors.zari.DEFAULT'); outline-offset: 3px; border-radius: 2px; }
+}
+
+@layer components {
+  .shell { @apply mx-auto w-full max-w-shell px-5 sm:px-8 lg:px-12; }
+
+  /* Kasavu border — the double gold band woven at the edge of a Kerala mundu.
+     Used as the site's one structural ornament: it marks thresholds between worlds. */
+  .kasavu-band {
+    height: 14px;
+    background:
+      linear-gradient(to bottom,
+        transparent 0 2px,
+        theme('colors.zari.DEFAULT') 2px 5px,
+        transparent 5px 8px,
+        theme('colors.zari.light') 8px 12px,
+        transparent 12px);
+  }
+  .kasavu-band-thin {
+    height: 7px;
+    background: linear-gradient(to bottom,
+      theme('colors.zari.DEFAULT') 0 2px, transparent 2px 4px, theme('colors.zari.light') 4px 7px);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3 text-step--1 font-semibold transition-colors duration-200;
+  }
+  .btn-flame { @apply btn bg-flame text-soot hover:bg-zari-light; }
+  .btn-ghost-light { @apply btn border border-kasavu/40 text-kasavu hover:border-flame hover:text-flame; }
+  .btn-laterite { @apply btn bg-laterite text-kasavu hover:bg-laterite-light; }
+  .btn-ghost-dark { @apply btn border border-soot/30 text-soot hover:border-laterite hover:text-laterite; }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%;
+    transition: background-size .3s ease;
+  }
+  .link-underline:hover, .link-underline[aria-current='page'] { background-size: 100% 1px; }
+
+  .grain::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .08; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .field {
+    @apply w-full rounded-md border border-soot/20 bg-white/60 px-4 py-3 text-step-0 text-soot placeholder:text-soot/40 transition-colors focus:border-laterite focus:outline-none focus:ring-2 focus:ring-laterite/20;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
