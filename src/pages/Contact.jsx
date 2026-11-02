@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { CheckCircle2, Clock, Mail, MapPin, Phone } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import PageHeader from '@/components/layout/PageHeader'
 import AnimatedTabs from '@/components/ui/AnimatedTabs'
@@ -35,7 +35,10 @@ function EnquiryForm({ centre }) {
   const [v, setV] = useState({ ...empty, centre })
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | sending | sent | failed
+  const confirmation = useRef(null)
   useEffect(() => setV((o) => ({ ...o, centre })), [centre])
+  // The form is taller than the confirmation that replaces it, so bring it into view
+  useEffect(() => { if (status === 'sent') confirmation.current?.scrollIntoView({ block: 'start' }) }, [status])
   const set = (k) => (e) => setV({ ...v, [k]: e.target.value })
   const a11y = (k) => ({ id: k, 'aria-invalid': !!errors[k], 'aria-describedby': errors[k] ? `${k}-err` : undefined })
   const centreLoc = locations.find((l) => l.id === v.centre)
@@ -66,7 +69,7 @@ function EnquiryForm({ centre }) {
 
   if (status === 'sent') {
     return (
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-lg bg-kadu p-10 text-kasavu" role="status">
+      <motion.div ref={confirmation} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="scroll-mt-28 rounded-lg bg-kadu p-10 text-kasavu" role="status">
         <CheckCircle2 className="h-10 w-10 text-flame" />
         <h3 className="mt-6 text-step-2">Enquiry sent</h3>
         <p className="mt-3 max-w-md text-kasavu/75">Thank you, {v.name.split(' ')[0]}. Our team will call you within a day to fix a time for your trial class.</p>

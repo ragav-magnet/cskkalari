@@ -9,6 +9,28 @@
     <meta property="og:title" content="CSK Kalari Sangham" />
     <meta property="og:description" content="Traditional Kalaripayattu in Bengaluru." />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script>
+      // After a new deployment, files from the previous build no longer exist.
+      // Reload once to pick up the current build instead of showing a blank page.
+      (function () {
+        function reloadOnce(e) {
+          try {
+            var last = Number(sessionStorage.getItem('asset-reload') || 0)
+            if (Date.now() - last < 30000) return
+            sessionStorage.setItem('asset-reload', String(Date.now()))
+          } catch (err) {
+            return
+          }
+          if (e.type === 'vite:preloadError') e.preventDefault()
+          location.reload()
+        }
+        window.addEventListener('vite:preloadError', reloadOnce)
+        window.addEventListener('error', function (e) {
+          var t = e.target
+          if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK') && /\/assets\//.test(t.src || t.href || '')) reloadOnce(e)
+        }, true)
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
