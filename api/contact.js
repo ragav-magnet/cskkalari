@@ -4,7 +4,7 @@
 //   CONTACT_TO      inboxes that receive enquiries, separated by commas
 //   CONTACT_FROM    sender on a domain verified in Resend
 
-const TO = 'cskkalariblr@gmail.com, ragav.magnet@gmail.com'
+const TO = 'cskkalariblr@gmail.com'
 const FROM = 'CSK Kalari Website <enquiries@cskkalari.com>'
 const LIMITS = { name: 100, phone: 30, email: 200, centre: 60, programme: 100, age: 20, message: 3000 }
 
