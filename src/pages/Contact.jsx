@@ -38,6 +38,7 @@ function EnquiryForm({ centre }) {
   useEffect(() => setV((o) => ({ ...o, centre })), [centre])
   const set = (k) => (e) => setV({ ...v, [k]: e.target.value })
   const a11y = (k) => ({ id: k, 'aria-invalid': !!errors[k], 'aria-describedby': errors[k] ? `${k}-err` : undefined })
+  const centreLoc = locations.find((l) => l.id === v.centre)
 
   const submit = async (e) => {
     e.preventDefault()
@@ -47,23 +48,20 @@ function EnquiryForm({ centre }) {
       document.getElementById(Object.keys(errs)[0])?.focus()
       return
     }
-    const centreLoc = locations.find((l) => l.id === v.centre)
-    const centreName = centreLoc?.name
-    if (site.formEndpoint) {
-      setStatus('sending')
-      try {
-        const res = await fetch(site.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ ...v, centre: centreName }) })
-        if (!res.ok) throw new Error()
-        setStatus('sent')
-      } catch {
-        setStatus('failed')
-      }
-      return
+    setStatus('sending')
+    try {
+      const res = await fetch(site.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ ...v, centre: centreLoc?.name }) })
+      if (!res.ok) throw new Error()
+      setStatus('sent')
+    } catch {
+      setStatus('failed')
     }
-    // No form backend configured: hand the enquiry to WhatsApp, pre-filled
-    const text = [`Enquiry from the website`, `Name: ${v.name}`, `Phone: ${v.phone}`, v.email && `Email: ${v.email}`, `Centre: ${centreName}`, v.programme && `Programme: ${v.programme}`, v.age && `Student age: ${v.age}`, v.message && `Message: ${v.message}`].filter(Boolean).join('\n')
-    window.open(`https://wa.me/${centreLoc?.whatsapp ?? site.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener')
-    setStatus('sent')
+  }
+
+  // If email fails, the same enquiry can still be sent by WhatsApp, pre-filled
+  const whatsappFallback = () => {
+    const text = [`Enquiry from the website`, `Name: ${v.name}`, `Phone: ${v.phone}`, `Email: ${v.email}`, `Centre: ${centreLoc?.name}`, v.programme && `Programme: ${v.programme}`, v.age && `Student age: ${v.age}`, v.message && `Message: ${v.message}`].filter(Boolean).join('\n')
+    return `https://wa.me/${centreLoc?.whatsapp ?? site.whatsapp}?text=${encodeURIComponent(text)}`
   }
 
   if (status === 'sent') {
@@ -100,8 +98,13 @@ function EnquiryForm({ centre }) {
       <div className="sm:col-span-2"><Field label="Message" id="message" optional><textarea className="field min-h-32" value={v.message} onChange={set('message')} id="message" placeholder="Anything we should know, like injuries or preferred batch times" /></Field></div>
       <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center">
         <button type="submit" className="btn-laterite px-8 py-4 text-step-0" disabled={status === 'sending'}>{status === 'sending' ? 'Sending enquiry…' : 'Send enquiry'}</button>
-        {status === 'failed' && <p className="text-step--1 text-laterite" role="alert">The enquiry didn’t go through. Check your connection and try again, or call {site.phone}.</p>}
       </div>
+      {status === 'failed' && (
+        <div className="sm:col-span-2" role="alert">
+          <p className="text-laterite">We couldn’t send your enquiry by email. Tap the button to send the same details on WhatsApp, or call {site.phone}.</p>
+          <a href={whatsappFallback()} target="_blank" rel="noreferrer" className="btn-flame mt-4">Send on WhatsApp</a>
+        </div>
+      )}
     </form>
   )
 }
