@@ -17,9 +17,9 @@ export const site = {
     youtube: 'https://www.youtube.com/', // TODO
     facebook: 'https://www.facebook.com/', // TODO
   },
-  // Optional: set VITE_FORM_ENDPOINT in .env (e.g. a Formspree URL) to receive
-  // enquiries by email. Without it the form hands the enquiry to WhatsApp.
-  formEndpoint: import.meta.env.VITE_FORM_ENDPOINT || '',
+  // Enquiries are emailed through Resend by the function in api/contact.js.
+  // Set VITE_FORM_ENDPOINT only to send them somewhere else.
+  formEndpoint: import.meta.env.VITE_FORM_ENDPOINT || '/api/contact',
 }
 
 export const locations = [

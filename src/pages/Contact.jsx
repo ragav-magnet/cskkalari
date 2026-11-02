@@ -8,13 +8,13 @@ import Photo from '@/components/ui/Photo'
 import { programmes } from '@/data/content'
 import { locations, mapEmbed, mapLink, site } from '@/data/site'
 
-const empty = { name: '', phone: '', email: '', centre: '', programme: '', age: '', message: '' }
+const empty = { name: '', phone: '', email: '', centre: '', programme: '', age: '', message: '', website: '' }
 
 function validate(v) {
   const e = {}
   if (!v.name.trim()) e.name = 'Enter your name.'
   if (!/^[+\d][\d\s-]{8,}$/.test(v.phone.trim())) e.phone = 'Enter a phone number with at least 9 digits.'
-  if (v.email && !/^\S+@\S+\.\S+$/.test(v.email)) e.email = 'Enter an email like name@example.com, or leave it empty.'
+  if (!/^\S+@\S+\.\S+$/.test(v.email.trim())) e.email = 'Enter an email like name@example.com.'
   if (!v.centre) e.centre = 'Choose the centre you’d like to attend.'
   return e
 }
@@ -79,9 +79,11 @@ function EnquiryForm({ centre }) {
 
   return (
     <form noValidate onSubmit={submit} className="grid gap-5 sm:grid-cols-2">
+      {/* Spam trap: hidden from people, filled in by bots, checked in api/contact.js */}
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value={v.website} onChange={set('website')} className="absolute left-[-9999px] h-px w-px opacity-0" />
       <div className="sm:col-span-2"><Field label="Your name" id="name" error={errors.name}><input className="field" autoComplete="name" value={v.name} onChange={set('name')} {...a11y('name')} /></Field></div>
       <Field label="Phone" id="phone" error={errors.phone}><input className="field" type="tel" autoComplete="tel" inputMode="tel" placeholder="+91" value={v.phone} onChange={set('phone')} {...a11y('phone')} /></Field>
-      <Field label="Email" id="email" optional error={errors.email}><input className="field" type="email" autoComplete="email" value={v.email} onChange={set('email')} {...a11y('email')} /></Field>
+      <Field label="Email" id="email" error={errors.email}><input className="field" type="email" required autoComplete="email" value={v.email} onChange={set('email')} {...a11y('email')} /></Field>
       <Field label="Centre" id="centre" error={errors.centre}>
         <select className="field" value={v.centre} onChange={set('centre')} {...a11y('centre')}>
           <option value="">Choose a centre</option>
