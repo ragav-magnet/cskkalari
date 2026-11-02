@@ -2,7 +2,7 @@ import PageHeader from '@/components/layout/PageHeader'
 import Photo from '@/components/ui/Photo'
 import Reveal from '@/components/ui/Reveal'
 import KasavuBand from '@/components/ui/KasavuBand'
-import { Poothara, Nilavilakku } from '@/components/motifs/Motifs'
+import { Poothara, Emblem } from '@/components/motifs/Motifs'
 import { heritage, values } from '@/data/content'
 import { Link } from 'react-router-dom'
 
@@ -27,7 +27,7 @@ export default function About() {
             </div>
           </div>
           <div className="lg:col-span-5 lg:col-start-8">
-            <Photo folder="events" index={1} caption="Students at a demonstration" tone="kadu" className="aspect-[4/5] rounded-t-[999px]" />
+            <Photo folder="events" index={0} caption="Students at a demonstration" tone="kadu" className="aspect-[4/5] rounded-t-[999px]" />
           </div>
         </div>
       </section>
@@ -36,7 +36,7 @@ export default function About() {
       <section className="bg-kasavu-deep py-24 sm:py-28">
         <div className="shell grid gap-12 md:grid-cols-2">
           <div>
-            <Nilavilakku className="h-16 w-9" lit={false} />
+            <Emblem badge lit={false} className="h-16 w-16" />
             <h2 className="mt-6 text-step-2 text-laterite sm:text-step-3">Our mission</h2>
             <p className="mt-4 max-w-measure text-soot/80">To teach authentic Kalaripayattu to anyone willing to practise, building strong bodies, calm minds and respect for the tradition, in classes that are safe, structured and close to home.</p>
           </div>
@@ -70,7 +70,7 @@ export default function About() {
         <div className="shell grid gap-12 py-24 sm:py-32 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-32">
-              <h2 className="text-step-3 sm:text-step-4">The heritage of Kalaripayattu</h2>
+              <h2 className="text-step-3 sm:text-step-4 lg:text-[2.5rem] xl:text-step-4">The heritage of Kalaripayattu</h2>
               <p className="mt-6 max-w-sm text-kasavu/70">How a training ground in medieval Kerala became a practice followed around the world.</p>
             </div>
           </div>

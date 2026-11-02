@@ -9,9 +9,9 @@ export const site = {
   shortName: 'CSK Kalari',
   url: 'https://cskkalari.com',
   tagline: 'Traditional Kalaripayattu in Bengaluru',
-  phone: '+91 90000 00000', // TODO: real phone number
-  whatsapp: '919000000000', // TODO: WhatsApp number, digits only with country code
-  email: 'info@cskkalari.com', // TODO: confirm inbox
+  phone: '+91 88919 83113',
+  whatsapp: '918891983113', // digits only with country code
+  email: 'cskkalariblr@gmail.com',
   social: {
     instagram: 'https://www.instagram.com/', // TODO
     youtube: 'https://www.youtube.com/', // TODO
@@ -27,9 +27,10 @@ export const locations = [
     id: 'kasavanahalli',
     name: 'Kasavanahalli',
     area: 'Off Sarjapur Road',
-    address: 'Kasavanahalli, Off Sarjapur Road, Bengaluru, Karnataka 560035', // TODO: full street address
+    address: 'Roof Top, Club House, Kristal Agate & Jasper, Hosa Road, Kasavanahalli, Bengaluru, Karnataka 560035',
     mapQuery: 'CSK Kalari Sangham - Kasavanahalli',
-    phone: '+91 90000 00000', // TODO
+    phone: '+91 88919 83113',
+    whatsapp: '918891983113',
     hours: [
       { days: 'Mon – Fri', time: ['6:00 – 8:00 AM', '5:30 – 8:30 PM'] }, // TODO
       { days: 'Sat – Sun', time: ['7:00 – 11:00 AM'] }, // TODO
@@ -40,9 +41,10 @@ export const locations = [
     id: 'sg-palaya',
     name: 'S.G. Palaya',
     area: 'Near Hosur Road',
-    address: 'S.G. Palaya, Bengaluru, Karnataka 560029', // TODO: full street address
-    mapQuery: 'CSK Kalari Sangham S.G. Palaya',
-    phone: '+91 90000 00000', // TODO
+    address: 'Jeevan Jyothi OAC Community Hall, Roof Top Hall, 1st Main Road, Bhavani Nagar, S.G. Palaya, Bengaluru, Karnataka 560029',
+    mapQuery: 'CSK Kalari Sangham – S.G. Palaya',
+    phone: '+91 88919 83113',
+    whatsapp: '918891983113',
     hours: [
       { days: 'Mon – Fri', time: ['6:00 – 8:00 AM', '5:30 – 8:30 PM'] }, // TODO
       { days: 'Sat – Sun', time: ['7:00 – 11:00 AM'] }, // TODO
@@ -53,9 +55,10 @@ export const locations = [
     id: 'udayanagar',
     name: 'Udayanagar',
     area: 'Near K.R. Puram',
-    address: 'Udayanagar, Bengaluru, Karnataka 560016', // TODO: full street address
+    address: 'No. 38, 2nd Main, next to Sri Sharada Scooter Garage, near Manjunatha Clinic, Udayanagar, Bengaluru, Karnataka 560016',
     mapQuery: 'CSK Kalari Sangham - Udayanagar',
-    phone: '+91 90000 00000', // TODO
+    phone: '+91 88919 83113',
+    whatsapp: '918891983113',
     hours: [
       { days: 'Mon – Fri', time: ['6:00 – 8:00 AM', '5:30 – 8:30 PM'] }, // TODO
       { days: 'Sat – Sun', time: ['7:00 – 11:00 AM'] }, // TODO

@@ -31,11 +31,11 @@ export default function Services() {
       <section className="py-24 sm:py-28">
         <div className="shell">
           <AnimatedTabs label="Filter programmes" tabs={audiences} value={filter} onChange={setFilter} />
-          <motion.div layout className="mt-10 grid gap-5 md:grid-cols-2">
+          <motion.div layout className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
             <AnimatePresence mode="popLayout">
               {list.map((p) => (
                 <motion.div key={p.id} layout initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }} transition={{ duration: 0.3 }}>
-                  <SpotlightCard id={p.id} className="flex h-full scroll-mt-32 flex-col rounded-lg border border-soot/15 bg-white/50 p-8" color="rgba(126,42,23,0.08)">
+                  <SpotlightCard id={p.id} className="flex h-full scroll-mt-32 flex-col rounded-lg border border-soot/15 bg-white/50 p-6 sm:p-8" color="rgba(126,42,23,0.08)">
                     <div className="flex items-baseline justify-between gap-4">
                       <p className="text-step--1 font-medium text-laterite">{p.ages}</p>
                       <p className="text-step--1 text-soot/60">{p.frequency}</p>
@@ -105,7 +105,7 @@ export default function Services() {
           <div className="mt-12 grid gap-5 md:grid-cols-3">
             {locations.map((l) => (
               <div key={l.id} className="rounded-lg bg-kasavu p-7">
-                <h3 className="text-step-2">{l.name}</h3>
+                <h3 className="text-step-2 md:text-step-1 lg:text-step-2">{l.name}</h3>
                 <p className="text-step--1 text-soot/60">{l.area}</p>
                 <dl className="mt-6 space-y-4">
                   {l.hours.map((h) => (

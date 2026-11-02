@@ -43,12 +43,25 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3 text-step--1 font-semibold transition-colors duration-200;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3 text-step--1 font-semibold transition-colors duration-200;
   }
-  .btn-flame { @apply btn bg-flame text-soot hover:bg-zari-light; }
+  .btn-flame { @apply btn relative overflow-hidden bg-flame text-soot hover:bg-zari-light; }
+  /* A band of light crossing the button now and then, after the "Shimmer Button" */
+  .btn-flame::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, .55) 50%, transparent 60%);
+    transform: translateX(-120%);
+    animation: sheen 4.5s ease-in-out infinite;
+  }
   .btn-ghost-light { @apply btn border border-kasavu/40 text-kasavu hover:border-flame hover:text-flame; }
   .btn-laterite { @apply btn bg-laterite text-kasavu hover:bg-laterite-light; }
   .btn-ghost-dark { @apply btn border border-soot/30 text-soot hover:border-laterite hover:text-laterite; }
+
+  /* Text links on touch screens: a finger-sized target without changing the desktop layout */
+  .tap { @apply inline-flex min-h-11 items-center; }
+  @media (min-width: 1024px) and (pointer: fine) {
+    .tap { min-height: 0; }
+  }
 
   .link-underline {
     background-image: linear-gradient(currentColor, currentColor);
@@ -65,6 +78,11 @@
   .field {
     @apply w-full rounded-md border border-soot/20 bg-white/60 px-4 py-3 text-step-0 text-soot placeholder:text-soot/40 transition-colors focus:border-laterite focus:outline-none focus:ring-2 focus:ring-laterite/20;
   }
+}
+
+@keyframes sheen {
+  0%, 60% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
 }
 
 @media (prefers-reduced-motion: reduce) {

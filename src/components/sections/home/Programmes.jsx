@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import SpotlightCard from '@/components/ui/SpotlightCard'
+import TiltCard from '@/components/ui/TiltCard'
 import { programmes } from '@/data/content'
 import { Staff, Otta, ShieldSword, Urumi } from '@/components/motifs/Motifs'
 import { cn } from '@/lib/utils'
@@ -14,19 +15,19 @@ export default function Programmes() {
           <h2 className="max-w-xl text-step-3 text-laterite sm:text-step-4">Classes for every age and every body</h2>
           <Link to="/services" className="btn-ghost-dark self-start md:self-auto">All programmes and timings</Link>
         </div>
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {programmes.map((p, i) => {
             const Icon = icons[i]
             const featured = p.featured
             return (
+              <TiltCard key={p.id} className={featured ? 'xl:col-span-2' : undefined}>
               <SpotlightCard
-                key={p.id}
                 as={Link}
                 to={`/services#${p.id}`}
                 color={featured ? 'rgba(242,179,61,0.22)' : 'rgba(126,42,23,0.10)'}
                 className={cn(
-                  'flex flex-col rounded-lg p-7 transition-transform duration-300 hover:-translate-y-1',
-                  featured ? 'min-h-[22rem] lg:col-span-2' : 'min-h-[16rem] border border-soot/15 bg-white/40',
+                  'flex h-full flex-col rounded-lg p-7 transition-transform duration-300 hover:-translate-y-1 xl:px-6',
+                  featured ? 'min-h-[22rem]' : 'min-h-[16rem] border border-soot/15 bg-white/40',
                   i === 0 && 'bg-laterite text-kasavu',
                   i === 1 && 'bg-kadu text-kasavu',
                 )}
@@ -39,6 +40,7 @@ export default function Programmes() {
                   {Icon && <Icon className="h-10 w-10 text-zari" />}
                 </div>
               </SpotlightCard>
+              </TiltCard>
             )
           })}
         </div>

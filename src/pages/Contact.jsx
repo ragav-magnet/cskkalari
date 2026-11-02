@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import PageHeader from '@/components/layout/PageHeader'
 import AnimatedTabs from '@/components/ui/AnimatedTabs'
+import Photo from '@/components/ui/Photo'
 import { programmes } from '@/data/content'
 import { locations, mapEmbed, mapLink, site } from '@/data/site'
 
@@ -46,7 +47,8 @@ function EnquiryForm({ centre }) {
       document.getElementById(Object.keys(errs)[0])?.focus()
       return
     }
-    const centreName = locations.find((l) => l.id === v.centre)?.name
+    const centreLoc = locations.find((l) => l.id === v.centre)
+    const centreName = centreLoc?.name
     if (site.formEndpoint) {
       setStatus('sending')
       try {
@@ -60,7 +62,7 @@ function EnquiryForm({ centre }) {
     }
     // No form backend configured: hand the enquiry to WhatsApp, pre-filled
     const text = [`Enquiry from the website`, `Name: ${v.name}`, `Phone: ${v.phone}`, v.email && `Email: ${v.email}`, `Centre: ${centreName}`, v.programme && `Programme: ${v.programme}`, v.age && `Student age: ${v.age}`, v.message && `Message: ${v.message}`].filter(Boolean).join('\n')
-    window.open(`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener')
+    window.open(`https://wa.me/${centreLoc?.whatsapp ?? site.whatsapp}?text=${encodeURIComponent(text)}`, '_blank', 'noopener')
     setStatus('sent')
   }
 
@@ -106,22 +108,49 @@ export default function Contact() {
   const { hash } = useLocation()
   const initial = locations.find((l) => `#${l.id}` === hash)?.id ?? locations[0].id
   const [active, setActive] = useState(initial)
-  useEffect(() => { if (hash) setActive(locations.find((l) => `#${l.id}` === hash)?.id ?? active) }, [hash]) // eslint-disable-line
+  useEffect(() => {
+    if (!hash) return
+    setActive(locations.find((l) => `#${l.id}` === hash)?.id ?? active)
+    const t = setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' }), 350)
+    return () => clearTimeout(t)
+  }, [hash]) // eslint-disable-line
   const loc = locations.find((l) => l.id === active)
 
   return (
     <>
       <PageHeader mal="സ്വാഗതം" title="Visit a kalari near you" intro="Book a trial class, ask about fees or bring a group. Choose a centre to see its address, timings and map.">
         <div className="mt-10 flex flex-wrap gap-x-10 gap-y-3 text-kasavu/85">
-          <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 hover:text-flame"><Phone className="h-4 w-4 text-flame" />{site.phone}</a>
-          <a href={`mailto:${site.email}`} className="flex items-center gap-2 hover:text-flame"><Mail className="h-4 w-4 text-flame" />{site.email}</a>
+          <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="tap flex gap-2 hover:text-flame"><Phone className="h-4 w-4 text-flame" />{site.phone}</a>
+          <a href={`mailto:${site.email}`} className="tap flex gap-2 hover:text-flame"><Mail className="h-4 w-4 text-flame" />{site.email}</a>
         </div>
       </PageHeader>
+
+      <section className="pt-20 sm:pt-24">
+        <div className="shell">
+          <h2 className="text-step-3 text-laterite sm:text-step-4">Our three centres</h2>
+          <ul className="mt-10 grid gap-5 md:grid-cols-3">
+            {locations.map((l) => (
+              <li key={l.id} id={l.id} className="flex scroll-mt-28 flex-col overflow-hidden rounded-lg border border-soot/15 bg-white/40">
+                <Photo folder={l.id} caption={`${l.name} centre`} className="aspect-[4/3] w-full" />
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-step-2 md:text-step-1 lg:text-step-2">{l.name}</h3>
+                  <p className="mt-3 flex-1 text-step--1 text-soot/70">{l.address}</p>
+                  <a href={`tel:${l.phone.replace(/\s/g, '')}`} className="tap mt-4 gap-2 font-medium hover:text-laterite"><Phone className="h-4 w-4 text-zari-dark" />{l.phone}</a>
+                  <div className="mt-5 flex flex-wrap gap-3">
+                    <a href={mapLink(l.mapQuery)} target="_blank" rel="noreferrer" className="btn-ghost-dark px-4 py-2"><MapPin className="h-4 w-4" />Directions</a>
+                    <button type="button" onClick={() => { setActive(l.id); document.getElementById('centre-details')?.scrollIntoView({ block: 'start' }) }} aria-pressed={active === l.id} className="btn-laterite px-4 py-2">Timings and map</button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <section className="py-20 sm:py-24">
         <div className="shell">
           <AnimatedTabs label="Choose a centre" tabs={locations.map((l) => ({ id: l.id, label: l.name }))} value={active} onChange={setActive} />
-          <div className="mt-10 grid overflow-hidden rounded-lg border border-soot/15 bg-white/40 lg:grid-cols-5">
+          <div id="centre-details" className="mt-10 grid scroll-mt-28 overflow-hidden rounded-lg border border-soot/15 bg-white/40 lg:grid-cols-5">
             <AnimatePresence mode="wait">
               <motion.div key={loc.id} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 12 }} transition={{ duration: 0.3 }} className="p-8 lg:col-span-2 lg:p-10" role="tabpanel">
                 <h2 className="text-step-3 text-laterite">{loc.name}</h2>
@@ -130,7 +159,7 @@ export default function Contact() {
                   <li className="flex gap-4"><Clock className="mt-1 h-5 w-5 shrink-0 text-zari-dark" />
                     <span className="space-y-2">{loc.hours.map((h) => <span key={h.days} className="block"><span className="font-medium">{h.days}</span><span className="block text-soot/70">{h.time.join(', ')}</span></span>)}</span>
                   </li>
-                  <li className="flex gap-4"><Phone className="mt-1 h-5 w-5 shrink-0 text-zari-dark" /><a href={`tel:${loc.phone.replace(/\s/g, '')}`} className="hover:text-laterite">{loc.phone}</a></li>
+                  <li className="flex gap-4"><Phone className="mt-1 h-5 w-5 shrink-0 text-zari-dark" /><a href={`tel:${loc.phone.replace(/\s/g, '')}`} className="tap -mt-2.5 hover:text-laterite lg:mt-0">{loc.phone}</a></li>
                 </ul>
                 <a href={mapLink(loc.mapQuery)} target="_blank" rel="noreferrer" className="btn-ghost-dark mt-10">Open in Google Maps</a>
               </motion.div>
@@ -151,7 +180,7 @@ export default function Contact() {
           <div className="lg:col-span-4">
             <h2 className="text-step-3 text-laterite sm:text-step-4">Send an enquiry</h2>
             <p className="mt-4 max-w-sm text-soot/70">Tell us who will be training and where. We’ll call back to fix a trial class.</p>
-            <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noreferrer" className="btn-ghost-dark mt-8">Or message us on WhatsApp</a>
+            <a href={`https://wa.me/${loc.whatsapp}`} target="_blank" rel="noreferrer" className="btn-ghost-dark mt-8">Or message us on WhatsApp</a>
           </div>
           <div className="lg:col-span-7 lg:col-start-6"><EnquiryForm centre={active} /></div>
         </div>

@@ -42,7 +42,7 @@ export default function Navbar() {
               key={n.to}
               to={n.to}
               end={n.to === '/'}
-              className={({ isActive }) => cn('link-underline pb-0.5 text-step-0 font-medium transition-colors', solid ? 'text-soot hover:text-laterite' : 'text-kasavu/85 hover:text-kasavu', isActive && (solid ? 'text-laterite' : 'text-flame'))}
+              className={({ isActive }) => cn('tap link-underline pb-0.5 text-step-0 font-medium transition-colors', solid ? 'text-soot hover:text-laterite' : 'text-kasavu/85 hover:text-kasavu', isActive && (solid ? 'text-laterite' : 'text-flame'))}
             >
               {n.label}
             </NavLink>
@@ -50,7 +50,7 @@ export default function Navbar() {
           <NavLink to="/contact" className={solid ? 'btn-laterite py-2.5' : 'btn-flame py-2.5'}>Book a trial class</NavLink>
         </nav>
         <button
-          className={cn('rounded-full p-2 lg:hidden', solid ? 'text-soot' : 'text-kasavu')}
+          className={cn('rounded-full p-2.5 lg:hidden', solid ? 'text-soot' : 'text-kasavu')}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -68,7 +68,7 @@ export default function Navbar() {
             animate={{ clipPath: 'circle(150% at 100% 0%)' }}
             exit={{ clipPath: 'circle(0% at 100% 0%)' }}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 -z-10 flex flex-col bg-laterite-dark px-6 pb-10 pt-28 text-kasavu lg:hidden"
+            className="fixed inset-0 -z-10 flex flex-col overflow-y-auto bg-laterite-dark px-6 pb-10 pt-28 text-kasavu lg:hidden"
           >
             <nav aria-label="Mobile" className="flex flex-col gap-2">
               {nav.map((n, i) => (
@@ -79,9 +79,9 @@ export default function Navbar() {
                 </motion.div>
               ))}
             </nav>
-            <div className="mt-auto space-y-4">
+            <div className="mt-auto space-y-4 pt-6">
               <div className="kasavu-band-thin" />
-              <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="flex items-center gap-3 text-step-1"><Phone className="h-5 w-5 text-flame" />{site.phone}</a>
+              <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="tap flex gap-3 text-step-1"><Phone className="h-5 w-5 text-flame" />{site.phone}</a>
               <NavLink to="/contact" className="btn-flame w-full">Book a trial class</NavLink>
             </div>
           </motion.div>

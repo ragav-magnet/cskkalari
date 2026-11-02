@@ -62,6 +62,14 @@ Built with Framer Motion + Tailwind, following patterns from 21st.dev:
 | `SpotlightCard`   | Pointer-following spotlight card                   | Home, Programmes |
 | `AnimatedTabs`    | Tabs with sliding shared-layout indicator          | Programmes, Gallery, Contact |
 | `MagneticButton`  | Magnetic hover button                              | Calls to action |
+| `TextReveal`      | Aceternity "Text Generate" word-by-word blur-in    | Home hero, page banners |
+| `Embers`          | Aceternity "Sparkles", re-cast as sparks off the lamp | Home hero |
+| `NumberTicker`    | Magic UI "Number Ticker" count-up                  | Home intro |
+| `Marquee`         | Magic UI "Marquee" endless band                    | Home, between intro and stages |
+| `TiltCard`        | Aceternity "3D Card" pointer tilt                  | Home programmes |
+| `ScrollText`      | Magic UI "Text Reveal" words lit by scrolling      | Home closing quote |
+| Focus photos      | Aceternity "Focus Cards" (hover sharpens one photo) | Home "Life at the kalari", Gallery |
+| `.btn-flame`      | "Shimmer Button" light sweep (CSS)                 | Gold buttons |
 | `Lightbox`        | Shared-layout image zoom with keyboard navigation  | Gallery |
 | `Accordion`       | Animated height FAQ                                | Programmes |
 | `ScrollProgress`  | Reading progress bar                               | All pages |

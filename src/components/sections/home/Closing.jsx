@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import KasavuBand from '@/components/ui/KasavuBand'
 import MagneticButton from '@/components/ui/MagneticButton'
+import ScrollText from '@/components/ui/ScrollText'
 import { site } from '@/data/site'
 
 export default function Closing() {
@@ -10,7 +11,7 @@ export default function Closing() {
       <div className="shell py-24 sm:py-32">
         <blockquote className="max-w-4xl">
           <p className="font-mal text-step-2 text-zari-light sm:text-step-3">മെയ്യ് കണ്ണാകണം</p>
-          <p className="mt-4 font-display text-step-3 leading-tight sm:text-step-4">“Let the body become all eyes.”</p>
+          <p className="mt-4 font-display text-step-3 leading-tight sm:text-step-4"><ScrollText text="“Let the body become all eyes.”" /></p>
           <footer className="mt-4 text-kasavu/70">A saying of the kalari: train until the whole body is aware.</footer>
         </blockquote>
         <div className="mt-16 flex flex-col gap-8 border-t border-kasavu/20 pt-10 md:flex-row md:items-center md:justify-between">

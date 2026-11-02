@@ -25,7 +25,7 @@ export default function AnimatedTabs({ tabs, value, onChange, className, tone = 
             onClick={() => onChange(t.id)}
             onKeyDown={(e) => onKey(e, i)}
             className={cn(
-              'relative rounded-full px-4 py-2 text-step--1 font-medium transition-colors',
+              'relative min-h-11 rounded-full px-4 py-2 text-step--1 font-medium transition-colors',
               dark ? (active ? 'text-soot' : 'text-kasavu/70 hover:text-kasavu') : active ? 'text-kasavu' : 'text-soot/70 hover:text-soot',
             )}
           >

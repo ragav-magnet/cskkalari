@@ -1,5 +1,5 @@
 import { pick } from '@/lib/images'
-import { motifFor, Nilavilakku } from '@/components/motifs/Motifs'
+import { motifFor, Emblem } from '@/components/motifs/Motifs'
 import { cn } from '@/lib/utils'
 
 const tones = {
@@ -19,11 +19,11 @@ export default function Photo({ folder, index = 0, image, caption, tone = 'later
   if (img) {
     return (
       <div className={cn('relative overflow-hidden bg-soot', className)}>
-        <img src={img.src} alt={caption || img.alt} loading={loading} decoding="async" className={cn('h-full w-full object-cover', imgClassName)} />
+        <img src={img.src} alt={img.alt || caption} loading={loading} decoding="async" className={cn('h-full w-full object-cover', imgClassName)} />
       </div>
     )
   }
-  const Motif = motifFor[folder] ?? Nilavilakku
+  const Motif = motifFor[folder] ?? Emblem
   return (
     <div role="img" aria-label={caption ? `${caption} (photo coming soon)` : 'Photo coming soon'} className={cn('relative overflow-hidden grain', tones[tone], className)}>
       <div

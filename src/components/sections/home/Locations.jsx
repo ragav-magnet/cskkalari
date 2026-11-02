@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useMotionValue, useSpring } from 'framer-motion'
-import { MapPin } from 'lucide-react'
+import { MapPin, Phone } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Photo from '@/components/ui/Photo'
@@ -40,17 +40,20 @@ export default function Locations() {
           <ul className="border-t border-soot/20">
             {locations.map((l, i) => (
               <li key={l.id} onPointerEnter={() => setHover(i)} className="group grid gap-4 border-b border-soot/20 py-8 md:grid-cols-12 md:items-center">
-                <div className="md:col-span-5">
-                  <h3 className="text-step-3 transition-colors group-hover:text-laterite sm:text-step-4">{l.name}</h3>
+                <div className="md:col-span-6 lg:col-span-5">
+                  <h3 className="text-step-3 transition-colors group-hover:text-laterite sm:text-step-4 md:text-[2.5rem] lg:text-step-4">{l.name}</h3>
                   <p className="text-soot/60">{l.area}</p>
+                  <p className="mt-3 max-w-sm text-step--1 text-soot/70">{l.address}</p>
+                  <a href={`tel:${l.phone.replace(/\s/g, '')}`} className="tap mt-2 gap-2 text-step--1 font-medium hover:text-laterite"><Phone className="h-4 w-4" />{l.phone}</a>
                 </div>
-                <div className="text-step--1 text-soot/70 md:col-span-4">
+                <div className="text-step--1 text-soot/70 md:col-span-6 lg:col-span-4">
                   {l.hours.map((h) => (
                     <p key={h.days}><span className="inline-block w-24 font-medium text-soot">{h.days}</span>{h.time.join(', ')}</p>
                   ))}
                   <p className="mt-1">Near {l.near}</p>
                 </div>
-                <div className="flex gap-3 md:col-span-3 md:justify-end">
+                {/* no photo preview while over the buttons; shrink-wrapped so it covers only them */}
+                <div onPointerEnter={() => setHover(null)} onPointerLeave={() => setHover(i)} className="flex gap-3 md:col-span-12 md:justify-self-start lg:col-span-3 lg:justify-self-end">
                   <a href={mapLink(l.mapQuery)} target="_blank" rel="noreferrer" className="btn-ghost-dark px-4 py-2"><MapPin className="h-4 w-4" />Directions</a>
                   <Link to={`/contact#${l.id}`} className="btn-laterite px-4 py-2">Enquire</Link>
                 </div>

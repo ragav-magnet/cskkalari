@@ -48,7 +48,7 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
               <span className="text-step--1 text-kasavu/60">{index + 1} of {items.length}</span>
             </figcaption>
           </motion.figure>
-          <button ref={closeRef} onClick={onClose} aria-label="Close" className="absolute right-4 top-4 rounded-full p-2 text-kasavu hover:bg-kasavu/10"><X /></button>
+          <button ref={closeRef} onClick={onClose} aria-label="Close" className="absolute right-4 top-4 rounded-full p-2.5 text-kasavu hover:bg-kasavu/10"><X /></button>
           <button onClick={(e) => { e.stopPropagation(); go(-1) }} aria-label="Previous photo" className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full p-3 text-kasavu hover:bg-kasavu/10 sm:left-6"><ChevronLeft /></button>
           <button onClick={(e) => { e.stopPropagation(); go(1) }} aria-label="Next photo" className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-3 text-kasavu hover:bg-kasavu/10 sm:right-6"><ChevronRight /></button>
         </motion.div>
