@@ -21,24 +21,29 @@
     <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png" />
     <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
     <script>
-      // After a new deployment, files from the previous build no longer exist.
-      // Reload once to pick up the current build instead of showing a blank page.
+      // After a new deployment, files from the previous build no longer exist, and for
+      // a few seconds the new ones may not be ready. Retry a few times, with a limit,
+      // instead of showing a blank page.
       (function () {
-        function reloadOnce(e) {
+        var scheduled = false
+        function retry(e) {
+          if (scheduled) return
           try {
-            var last = Number(sessionStorage.getItem('asset-reload') || 0)
-            if (Date.now() - last < 30000) return
-            sessionStorage.setItem('asset-reload', String(Date.now()))
+            var saved = JSON.parse(sessionStorage.getItem('asset-reload') || '{}')
+            var tries = Date.now() - (saved.t || 0) < 60000 ? saved.n || 0 : 0
+            if (tries >= 5) return
+            sessionStorage.setItem('asset-reload', JSON.stringify({ n: tries + 1, t: Date.now() }))
           } catch (err) {
             return
           }
+          scheduled = true
           if (e.type === 'vite:preloadError') e.preventDefault()
-          location.reload()
+          setTimeout(function () { location.reload() }, tries === 0 ? 300 : 3000)
         }
-        window.addEventListener('vite:preloadError', reloadOnce)
+        window.addEventListener('vite:preloadError', retry)
         window.addEventListener('error', function (e) {
           var t = e.target
-          if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK') && /\/assets\//.test(t.src || t.href || '')) reloadOnce(e)
+          if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK') && /\/assets\//.test(t.src || t.href || '')) retry(e)
         }, true)
       })()
     </script>

@@ -1,6 +1,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import BrandLogo from '@/components/ui/BrandLogo'
 import Embers from '@/components/ui/Embers'
 import MagneticButton from '@/components/ui/MagneticButton'
 import TextReveal from '@/components/ui/TextReveal'
@@ -35,7 +36,10 @@ export default function Hero() {
       <Embers className="-z-10" />
 
       <div className="shell flex flex-1 flex-col items-center justify-center pb-10 pt-28 text-center sm:pt-32">
-        <h1 className="max-w-4xl text-[2.75rem] leading-[0.98] sm:text-step-5 lg:text-[6rem] [@media(max-height:500px)]:text-step-4">
+        <motion.div {...fade(0.2)}>
+          <BrandLogo className="mb-5 h-20 w-20 drop-shadow-[0_0_24px_rgba(242,179,61,.45)] sm:h-24 sm:w-24 [@media(max-height:500px)]:mb-3 [@media(max-height:500px)]:h-14 [@media(max-height:500px)]:w-14" />
+        </motion.div>
+        <h1 className="max-w-4xl text-[1.375rem] leading-[1.05] sm:text-[2.5rem] lg:text-[3rem] [@media(max-height:500px)]:text-[1.75rem]">
           <TextReveal text="The lamp is lit." delay={0.5} /><br /> <TextReveal text="Step into the kalari." delay={0.8} />
         </h1>
         <motion.p {...fade(1.1)} className="mt-6 max-w-xl text-step-1 text-kasavu/75">
