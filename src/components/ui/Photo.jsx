@@ -1,5 +1,5 @@
 import { pick } from '@/lib/images'
-import { motifFor, Emblem } from '@/components/motifs/Motifs'
+import { motifFor, Poothara } from '@/components/motifs/Motifs'
 import { cn } from '@/lib/utils'
 
 const tones = {
@@ -23,7 +23,7 @@ export default function Photo({ folder, index = 0, image, caption, tone = 'later
       </div>
     )
   }
-  const Motif = motifFor[folder] ?? Emblem
+  const Motif = motifFor[folder] ?? Poothara
   return (
     <div role="img" aria-label={caption ? `${caption} (photo coming soon)` : 'Photo coming soon'} className={cn('relative overflow-hidden grain', tones[tone], className)}>
       <div

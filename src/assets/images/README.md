@@ -12,6 +12,7 @@ Until a folder has photos, the site shows woven artwork panels in their place.
 | `training/`      | Home intro collage (6th), About (3rd), Programmes (4th), "Life at the kalari" on the home page (3rd, 4th, 5th, 7th, 9th, 10th), Gallery |
 | `events/`        | About story (1st), home intro collage (3rd), "Life at the kalari" (2nd), Gallery   |
 | `hero/`          | Background of the home hero and every page banner (1st photo) |
+| `brand/`         | The CSK Kalari logo, used through `BrandLogo` (not a gallery folder) |
 
 Tips
 - File names become alt text and gallery captions: `kids-batch-meythari.jpg` → "kids batch meythari".

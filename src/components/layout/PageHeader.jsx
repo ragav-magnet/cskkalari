@@ -1,6 +1,6 @@
 // Shared header for inner pages: a dark lamplit band with a large Malayalam word.
 import { motion, useReducedMotion } from 'framer-motion'
-import { Emblem } from '@/components/motifs/Motifs'
+import BrandLogo from '@/components/ui/BrandLogo'
 import TextReveal from '@/components/ui/TextReveal'
 import { pick } from '@/lib/images'
 
@@ -26,7 +26,7 @@ export default function PageHeader({ mal, title, intro, children }) {
         {mal}
       </motion.span>
       <div className="shell relative">
-        <Emblem className="mb-6 h-24 w-24 drop-shadow-[0_0_24px_rgba(242,179,61,.35)] sm:h-28 sm:w-28" />
+        <BrandLogo className="mb-6 h-24 w-24 drop-shadow-[0_0_24px_rgba(242,179,61,.35)] sm:h-28 sm:w-28" />
         <h1 className="max-w-3xl text-[2.75rem] leading-[1.05] sm:text-step-5"><TextReveal text={title} delay={0.15} /></h1>
         {intro && <p className="mt-6 max-w-measure text-step-1 text-kasavu/75">{intro}</p>}
         {children}

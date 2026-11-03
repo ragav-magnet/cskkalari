@@ -58,7 +58,7 @@ Built with Framer Motion + Tailwind, following patterns from 21st.dev:
 
 | Component         | Pattern                                           | Used on |
 |-------------------|---------------------------------------------------|---------|
-| `LampGlow`        | Aceternity "Lamp" light cone, re-cast as lamplight | Home hero |
+| `LampGlow`        | Aceternity "Lamp" light cone, re-cast as lamplight | Not in use |
 | `SpotlightCard`   | Pointer-following spotlight card                   | Home, Programmes |
 | `AnimatedTabs`    | Tabs with sliding shared-layout indicator          | Programmes, Gallery, Contact |
 | `MagneticButton`  | Magnetic hover button                              | Calls to action |

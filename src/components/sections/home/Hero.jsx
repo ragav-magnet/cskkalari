@@ -1,9 +1,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { Emblem } from '@/components/motifs/Motifs'
 import Embers from '@/components/ui/Embers'
-import LampGlow from '@/components/ui/LampGlow'
 import MagneticButton from '@/components/ui/MagneticButton'
 import TextReveal from '@/components/ui/TextReveal'
 import { locations } from '@/data/site'
@@ -15,7 +13,6 @@ export default function Hero() {
   const bg = pick('hero')
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const wordY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const lampY = useTransform(scrollYProgress, [0, 1], ['0%', '-20%'])
   const fade = (delay) => (reduce ? {} : { initial: { opacity: 0, y: 18 }, animate: { opacity: 1, y: 0 }, transition: { delay, duration: 0.9, ease: [0.22, 1, 0.36, 1] } })
 
   return (
@@ -37,15 +34,8 @@ export default function Hero() {
 
       <Embers className="-z-10" />
 
-      <div className="shell flex flex-1 flex-col items-center pb-10 pt-28 text-center sm:pt-32">
-        <motion.div style={{ y: reduce ? 0 : lampY }} {...(reduce ? {} : { initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } })}>
-          <div className="relative">
-            <LampGlow className="-z-10" />
-            <Emblem className="h-44 w-44 drop-shadow-[0_0_40px_rgba(242,179,61,.45)] sm:h-56 sm:w-56 [@media(max-height:620px)]:h-24 [@media(max-height:620px)]:w-24" />
-          </div>
-        </motion.div>
-
-        <h1 className="mt-8 max-w-4xl text-[2.75rem] leading-[0.98] sm:text-step-5 lg:text-[6rem] [@media(max-height:620px)]:mt-4 [@media(max-height:500px)]:text-step-4">
+      <div className="shell flex flex-1 flex-col items-center justify-center pb-10 pt-28 text-center sm:pt-32">
+        <h1 className="max-w-4xl text-[2.75rem] leading-[0.98] sm:text-step-5 lg:text-[6rem] [@media(max-height:500px)]:text-step-4">
           <TextReveal text="The lamp is lit." delay={0.5} /><br /> <TextReveal text="Step into the kalari." delay={0.8} />
         </h1>
         <motion.p {...fade(1.1)} className="mt-6 max-w-xl text-step-1 text-kasavu/75">

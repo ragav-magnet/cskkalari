@@ -2,7 +2,8 @@ import PageHeader from '@/components/layout/PageHeader'
 import Photo from '@/components/ui/Photo'
 import Reveal from '@/components/ui/Reveal'
 import KasavuBand from '@/components/ui/KasavuBand'
-import { Poothara, Emblem } from '@/components/motifs/Motifs'
+import BrandLogo from '@/components/ui/BrandLogo'
+import { Poothara } from '@/components/motifs/Motifs'
 import { heritage, values } from '@/data/content'
 import { Link } from 'react-router-dom'
 
@@ -36,7 +37,7 @@ export default function About() {
       <section className="bg-kasavu-deep py-24 sm:py-28">
         <div className="shell grid gap-12 md:grid-cols-2">
           <div>
-            <Emblem badge lit={false} className="h-16 w-16" />
+            <BrandLogo className="h-16 w-16" />
             <h2 className="mt-6 text-step-2 text-laterite sm:text-step-3">Our mission</h2>
             <p className="mt-4 max-w-measure text-soot/80">To teach authentic Kalaripayattu to anyone willing to practise, building strong bodies, calm minds and respect for the tradition, in classes that are safe, structured and close to home.</p>
           </div>
